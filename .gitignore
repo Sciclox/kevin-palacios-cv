@@ -1,0 +1,7 @@
+# General
+.DS_Store
+Thumbs.db
+*.tmp
+*.bak
+*.log
+.vscode/
