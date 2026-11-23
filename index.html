@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark" data-font="serif">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kevin Palacios Pozo - Software Engineer</title>
+    <!-- Google Fonts for premium typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome for UI icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* CSS Custom Properties for Theme & Aesthetics */
+        :root {
+            /* Fonts */
+            --font-serif: 'Lora', Georgia, 'Times New Roman', serif;
+            --font-sans: 'Inter', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+
+            /* Animation transitions */
+            --transition-speed: 0.3s;
+            --transition-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* Dark Theme Variables (Modern Screen Portfolio) */
+        [data-theme="dark"] {
+            --bg-page: radial-gradient(circle at top left, #0e121e, #05070c);
+            --bg-paper: #ffffff;
+            --text-paper: #111111;
+            --text-muted: #555555;
+            --text-highlight: #0f172a;
+            --border-color: #cbd5e1;
+            --accent-color: #1e3a8a;
+            /* Deep Ivy Navy */
+            --accent-glow: rgba(30, 58, 138, 0.15);
+            --panel-bg: rgba(15, 23, 42, 0.75);
+            --panel-border: rgba(255, 255, 255, 0.08);
+            --panel-text: #f1f5f9;
+            --btn-hover-bg: rgba(255, 255, 255, 0.1);
+            --shadow-paper: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Light Theme Variables */
+        [data-theme="light"] {
+            --bg-page: radial-gradient(circle at top left, #f8fafc, #e2e8f0);
+            --bg-paper: #ffffff;
+            --text-paper: #111111;
+            --text-muted: #475569;
+            --text-highlight: #0f172a;
+            --border-color: #cbd5e1;
+            --accent-color: #1a365d;
+            --accent-glow: rgba(26, 54, 93, 0.08);
+            --panel-bg: rgba(255, 255, 255, 0.85);
+            --panel-border: rgba(15, 23, 42, 0.08);
+            --panel-text: #0f172a;
+            --btn-hover-bg: rgba(15, 23, 42, 0.05);
+            --shadow-paper: 0 20px 40px -15px rgba(15, 23, 42, 0.15);
+            --card-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.05);
+        }
+
+        /* Standard CV Font Toggle */
+        [data-font="serif"] .cv-document {
+            font-family: var(--font-serif);
+        }
+
+        [data-font="serif"] .cv-document h1,
+        [data-font="serif"] .cv-document h2 {
+            font-weight: 700;
+        }
+
+        [data-font="sans"] .cv-document {
+            font-family: var(--font-sans);
+            letter-spacing: -0.01em;
+        }
+
+        [data-font="sans"] .cv-document h1 {
+            font-weight: 700;
+            letter-spacing: -0.03em;
+        }
+
+        [data-font="sans"] .cv-document h2 {
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        /* Reset & Base Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--bg-page);
+            color: var(--panel-text);
+            font-family: var(--font-sans);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 60px;
+            transition: background var(--transition-speed) ease;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+        }
+
+        [data-theme="dark"] ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Glassmorphic Control Panel */
+        .control-panel {
+            position: sticky;
+            top: 20px;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 10px 20px;
+            margin: 20px 0 30px 0;
+            background: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: 50px;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: all var(--transition-speed) ease;
+        }
+
+        .control-btn {
+            background: transparent;
+            border: none;
+            color: var(--panel-text);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all var(--transition-speed) var(--transition-bounce);
+            position: relative;
+        }
+
+        .control-btn:hover {
+            background: var(--btn-hover-bg);
+            transform: scale(1.1);
+        }
+
+        .control-btn:active {
+            transform: scale(0.95);
+        }
+
+        .control-btn::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: -35px;
+            left: 50%;
+            transform: translateX(-50%) translateY(5px);
+            background: #1e293b;
+            color: #f8fafc;
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            border-radius: 4px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: all var(--transition-speed) ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .control-btn:hover::after {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .control-divider {
+            height: 24px;
+            width: 1px;
+            background: var(--panel-border);
+        }
+
+        .print-btn {
+            background: var(--accent-color);
+            color: #ffffff !important;
+            padding: 0 18px;
+            border-radius: 20px;
+            width: auto;
+            font-weight: 500;
+            font-size: 0.9rem;
+            gap: 8px;
+        }
+
+        .print-btn:hover {
+            background: #1d4ed8;
+            box-shadow: 0 0 15px rgba(29, 78, 216, 0.4);
+        }
+
+        /* Simulated Paper Document Container */
+        .cv-container {
+            width: 100%;
+            max-width: 850px;
+            padding: 0 20px;
+            perspective: 1000px;
+        }
+
+        .cv-document {
+            background: var(--bg-paper);
+            color: var(--text-paper);
+            padding: 50px 60px;
+            box-shadow: var(--shadow-paper);
+            border-radius: 4px;
+            transition: all var(--transition-speed) ease;
+            position: relative;
+            font-size: 10.5pt;
+            line-height: 1.45;
+            min-height: 1100px;
+            /* Aesthetic A4 proportion indicator */
+        }
+
+        /* Document Header */
+        .cv-header {
+            text-align: center;
+            margin-bottom: 22px;
+        }
+
+        .cv-name {
+            font-size: 24pt;
+            font-weight: 700;
+            color: var(--text-highlight);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+        }
+
+        .cv-title {
+            font-size: 11pt;
+            font-weight: 500;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 12px;
+        }
+
+        .cv-contact {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 8px 12px;
+            font-size: 9.5pt;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+
+        .cv-contact-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+            color: var(--text-muted);
+            transition: color 0.2s ease;
+            cursor: pointer;
+            padding: 2px 6px;
+            border-radius: 4px;
+            position: relative;
+        }
+
+        .cv-contact-item:hover {
+            color: var(--accent-color);
+            background-color: var(--accent-glow);
+        }
+
+        .cv-contact-item.linkedin {
+            font-weight: 500;
+        }
+
+        .cv-contact-divider {
+            color: var(--border-color);
+            font-weight: 300;
+        }
+
+        /* Sections */
+        .cv-section {
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .cv-section-title {
+            font-size: 11pt;
+            font-weight: 700;
+            color: var(--text-highlight);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            border-bottom: 1px solid var(--text-highlight);
+            padding-bottom: 4px;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* Section Specific Styles */
+        .cv-profile-text {
+            text-align: justify;
+            margin-bottom: 12px;
+            line-height: 1.55;
+        }
+
+        .cv-profile-text p {
+            margin-bottom: 8px;
+        }
+
+        .cv-profile-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Experience & Education Entries */
+        .cv-entry {
+            margin-bottom: 22px;
+            position: relative;
+        }
+
+        .cv-entry:not(:last-child) {
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+
+        .cv-entry:last-child {
+            margin-bottom: 0;
+        }
+
+        .cv-entry-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            font-weight: 700;
+            color: var(--text-highlight);
+            font-size: 10.5pt;
+            margin-bottom: 3px;
+        }
+
+        .cv-entry-subheader {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            font-style: italic;
+            color: var(--text-muted);
+            font-size: 10pt;
+            margin-top: 2px;
+            margin-bottom: 10px;
+        }
+
+        .cv-entry-bullets {
+            list-style-type: disc;
+            margin-left: 24px;
+            font-size: 10pt;
+            color: var(--text-paper);
+        }
+
+        .cv-entry-bullets li {
+            margin-bottom: 7px;
+            text-align: justify;
+            line-height: 1.5;
+        }
+
+        .cv-entry-bullets li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Inner projects formatting */
+        .cv-sub-project {
+            margin-top: 8px;
+            margin-bottom: 10px;
+        }
+
+        .cv-sub-project-title {
+            font-weight: 600;
+            color: var(--text-highlight);
+            font-size: 10pt;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .cv-sub-project-title::before {
+            content: "";
+            display: inline-block;
+            width: 5px;
+            height: 5px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+        }
+
+        .cv-tech-stack {
+            font-size: 9.5pt;
+            margin-top: 10px;
+            margin-bottom: 2px;
+            color: var(--text-muted);
+            font-style: italic;
+            line-height: 1.45;
+        }
+
+        .cv-tech-stack strong {
+            font-style: normal;
+            color: var(--text-highlight);
+            font-weight: 600;
+        }
+
+        /* Skills Grid Layout (Traditional but clean) */
+        .cv-skills-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px 26px;
+        }
+
+        .cv-skill-item {
+            font-size: 10pt;
+            display: flex;
+            align-items: flex-start;
+            line-height: 1.4;
+        }
+
+        .cv-skill-category {
+            font-weight: 700;
+            color: var(--text-highlight);
+            min-width: 140px;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .cv-skill-category::after {
+            content: ":";
+            position: absolute;
+            right: 15px;
+        }
+
+        .cv-skill-list {
+            color: var(--text-paper);
+        }
+
+        /* Certifications Grid */
+        .cv-certifications-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px 30px;
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        .cv-certification-item {
+            font-size: 10pt;
+            color: var(--text-paper);
+            margin-bottom: 2px;
+        }
+
+        /* Competencies List (Vertical) */
+        .cv-competencies-container {
+            list-style-type: disc;
+            margin-left: 24px;
+            padding-left: 0;
+        }
+
+        .cv-competency-item {
+            font-size: 10pt;
+            color: var(--text-paper);
+            line-height: 1.5;
+            margin-bottom: 4px;
+        }
+
+        /* Interactive Elements & Animations (Screen Only) */
+        @media screen {
+
+            /* Interactive skill tag feel on hover */
+            .cv-skill-list-interactive {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 5px;
+                margin-top: 3px;
+            }
+
+            .cv-skill-tag {
+                background: #f1f5f9;
+                border: 1px solid #e2e8f0;
+                padding: 2px 8px;
+                border-radius: 4px;
+                font-size: 8.5pt;
+                transition: all 0.2s ease;
+                cursor: default;
+                display: inline-block;
+                margin-right: 4px;
+                margin-bottom: 6px;
+            }
+
+            .cv-skill-tag:hover {
+                background: var(--accent-glow);
+                border-color: var(--accent-color);
+                color: var(--accent-color);
+                transform: translateY(-1px);
+            }
+
+            [data-theme="dark"] .cv-skill-tag {
+                background: #f8fafc;
+                border-color: #cbd5e1;
+            }
+
+            /* Entry items hover feedback */
+            .cv-entry {
+                padding: 4px;
+                margin-left: -4px;
+                margin-right: -4px;
+                border-radius: 4px;
+                transition: background-color 0.2s ease;
+            }
+
+            .cv-entry:hover {
+                background-color: rgba(0, 0, 0, 0.02);
+            }
+
+            /* Tooltip or feedback when copying */
+            .copied-toast {
+                position: fixed;
+                bottom: 30px;
+                background: #10b981;
+                color: white;
+                padding: 10px 20px;
+                border-radius: 30px;
+                font-weight: 500;
+                font-size: 0.9rem;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.4);
+                transform: translateY(100px);
+                opacity: 0;
+                transition: all 0.4s var(--transition-bounce);
+                z-index: 1000;
+            }
+
+            .copied-toast.show {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Screen Responsiveness */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px 10px 40px 10px;
+            }
+
+            .control-panel {
+                top: 10px;
+                padding: 8px 16px;
+                gap: 10px;
+            }
+
+            .cv-document {
+                padding: 30px 20px;
+            }
+
+            .cv-name {
+                font-size: 20pt;
+            }
+
+            .cv-skills-container,
+            .cv-certifications-container {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .cv-entry-header,
+            .cv-entry-subheader {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .cv-entry-header span:last-child,
+            .cv-entry-subheader span:last-child {
+                margin-top: 2px;
+                font-size: 9pt;
+            }
+        }
+
+        /* ==========================================================================
+           PRINT STYLESHEET (Harvard CV Print Engine)
+           Strict adherence to professional standards when printing or saving as PDF
+           ========================================================================== */
+        @media print {
+
+            /* 1. Page definition (Removes default browser headers/footers and standardizes page) */
+            @page {
+                size: letter portrait;
+                margin: 0;
+            }
+
+            /* 2. Hide all non-printable UI elements */
+            body,
+            html {
+                background: #ffffff !important;
+                color: #000000 !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                width: 100% !important;
+                height: auto !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            .control-panel,
+            .copied-toast {
+                display: none !important;
+            }
+
+            /* 3. Guaranteed Harvard Margins inside the document */
+            .cv-container {
+                max-width: 100% !important;
+                width: 100% !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            .cv-document {
+                box-shadow: none !important;
+                border: none !important;
+                border-radius: 0 !important;
+                padding: 12mm 18mm !important;
+                margin: 0 !important;
+                background: #ffffff !important;
+                color: #000000 !important;
+                font-family: var(--font-serif) !important;
+                font-size: 9.8pt !important;
+                line-height: 1.36 !important;
+                min-height: auto !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+
+            /* 4. Force Print Colors & Avoid Orphan Titles */
+            .cv-header {
+                margin-bottom: 12px !important;
+            }
+
+            .cv-name {
+                color: #000000 !important;
+                font-size: 19pt !important;
+                margin-bottom: 2px !important;
+            }
+
+            .cv-title {
+                color: #000000 !important;
+                font-size: 10pt !important;
+                margin-bottom: 6px !important;
+            }
+
+            .cv-contact,
+            .cv-contact-item,
+            .cv-entry-subheader {
+                color: #333333 !important;
+            }
+
+            .cv-section {
+                margin-bottom: 12px !important;
+                break-inside: auto !important;
+            }
+
+            .cv-section-title {
+                color: #000000 !important;
+                border-bottom: 1px solid #000000 !important;
+                margin-top: 10px !important;
+                margin-bottom: 6px !important;
+                padding-bottom: 2px !important;
+                break-after: avoid !important;
+                page-break-after: avoid !important;
+            }
+
+            .cv-profile-text {
+                margin-bottom: 6px !important;
+                line-height: 1.38 !important;
+            }
+
+            /* 5. Precise Spacing & Natural Continuous Page Flow */
+            .cv-entry {
+                break-inside: auto !important;
+                page-break-inside: auto !important;
+                margin-bottom: 10px !important;
+                padding: 0 !important;
+                background-color: transparent !important;
+            }
+
+            .cv-entry:not(:last-child) {
+                border-bottom: 1px dashed #cccccc !important;
+                padding-bottom: 10px !important;
+                margin-bottom: 10px !important;
+            }
+
+            .cv-entry-header,
+            .cv-entry-subheader {
+                display: flex !important;
+                flex-direction: row !important;
+                justify-content: space-between !important;
+                align-items: baseline !important;
+                width: 100% !important;
+                break-after: avoid !important;
+                page-break-after: avoid !important;
+            }
+
+            .cv-entry-header span:last-child,
+            .cv-entry-subheader span:last-child {
+                text-align: right !important;
+                margin-top: 0 !important;
+                font-size: 9pt !important;
+            }
+
+            .cv-entry-bullets {
+                margin-left: 18px !important;
+                padding-left: 0 !important;
+            }
+
+            .cv-entry-bullets li {
+                margin-bottom: 2.5px !important;
+                line-height: 1.36 !important;
+                break-inside: avoid !important;
+                page-break-inside: avoid !important;
+            }
+
+            .cv-tech-stack {
+                margin-top: 5px !important;
+                margin-bottom: 2px !important;
+                font-size: 9pt !important;
+                break-inside: avoid !important;
+                page-break-inside: avoid !important;
+            }
+
+            /* Reset skill styles back to plain list, no screen tags */
+            .cv-skill-tag {
+                background: transparent !important;
+                border: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                /* Asegura que el margen de pantalla no afecte la impresión */
+                color: #000000 !important;
+                font-size: 10pt !important;
+                transform: none !important;
+            }
+
+            .cv-skill-tag:not(:last-child)::after {
+                content: ", ";
+            }
+
+            /* Underline links slightly or print full text where helpful */
+            .cv-contact-item {
+                background: transparent !important;
+                padding: 0 !important;
+            }
+
+            .cv-contact-item:hover {
+                color: #333333 !important;
+            }
+
+            /* Hide icons in print so ATS parsers don't extract junk characters from icon fonts */
+            .cv-contact-item i,
+            .fa-solid,
+            .fa-brands {
+                display: none !important;
+            }
+
+            /* Make grids linear for perfect vertical parsing by ATS algorithms */
+            .cv-skills-container {
+                display: block !important;
+            }
+
+            .cv-skill-item {
+                display: block !important;
+                margin-bottom: 6px !important;
+            }
+
+            .cv-skill-category {
+                display: inline !important;
+                font-weight: 700 !important;
+            }
+
+            .cv-skill-category::after {
+                content: ": " !important;
+                position: static !important;
+            }
+
+            .cv-skill-list {
+                display: inline !important;
+            }
+
+            .cv-certifications-container {
+                display: block !important;
+                list-style-type: disc !important;
+                margin-left: 20px !important;
+            }
+
+            .cv-certification-item {
+                display: list-item !important;
+                margin-bottom: 4px !important;
+            }
+
+            .cv-competencies-container {
+                display: block !important;
+                list-style-type: disc !important;
+                margin-left: 20px !important;
+            }
+
+            .cv-competency-item {
+                display: list-item !important;
+                margin-bottom: 2.5px !important;
+                color: #000000 !important;
+                font-size: 9.5pt !important;
+                line-height: 1.35 !important;
+                break-inside: avoid !important;
+                page-break-inside: avoid !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Glassmorphic Control Panel (Screen only) -->
+    <div class="control-panel">
+        <button class="control-btn" id="themeBtn" data-tooltip="Cambiar Tema (Claro/Oscuro)">
+            <i class="fa-solid fa-moon"></i>
+        </button>
+        <button class="control-btn" id="fontBtn" data-tooltip="Cambiar Fuente (Serif/Sans)">
+            <i class="fa-solid fa-font"></i>
+        </button>
+        <div class="control-divider"></div>
+        <button class="control-btn print-btn" id="printBtn" data-tooltip="Imprimir / Guardar PDF">
+            <i class="fa-solid fa-print"></i>
+            <span>Imprimir / PDF</span>
+        </button>
+    </div>
+
+    <!-- CV Document Wrapper -->
+    <div class="cv-container">
+        <article class="cv-document">
+
+            <!-- HEADER -->
+            <header class="cv-header">
+                <h1 class="cv-name">Kevin Palacios Pozo</h1>
+                <div class="cv-title">Software Engineer</div>
+                <div class="cv-contact">
+                    <span class="cv-contact-item" onclick="copyText('Lima, Perú', 'Dirección copiada')">
+                        <i class="fa-solid fa-location-dot"></i> Lima, Perú
+                    </span>
+                    <span class="cv-contact-divider">•</span>
+                    <a href="tel:+51923062553" class="cv-contact-item" title="Llamar a Kevin">
+                        <i class="fa-solid fa-phone"></i> +51 923 062 553
+                    </a>
+                    <span class="cv-contact-divider">•</span>
+                    <span class="cv-contact-item"
+                        onclick="copyText('system.kevin.palacios@gmail.com', 'Correo copiado')" title="Copiar correo">
+                        <i class="fa-solid fa-envelope"></i> system.kevin.palacios@gmail.com
+                    </span>
+                    <span class="cv-contact-divider">•</span>
+                    <a href="https://www.linkedin.com/in/kevin-palacios-pozo" target="_blank"
+                        class="cv-contact-item linkedin" title="Ver perfil de LinkedIn">
+                        <i class="fa-brands fa-linkedin"></i> linkedin.com/in/kevin-palacios-pozo
+                    </a>
+                    <span class="cv-contact-divider">•</span>
+                    <a href="https://github.com/Sciclox" target="_blank"
+                        class="cv-contact-item" title="Ver perfil de GitHub">
+                        <i class="fa-brands fa-github"></i> github.com/Sciclox
+                    </a>
+                </div>
+            </header>
+
+            <!-- PERFIL -->
+            <section class="cv-section">
+                <h2 class="cv-section-title">Perfil Profesional</h2>
+                <div class="cv-profile-text">
+                    <p>Ingeniero de Sistemas Computacionales con más de 6 años de experiencia diseñando e implementando soluciones de software multiplataforma (Mobile, Web, Desktop), arquitecturas backend escalables e integración de Inteligencia Artificial aplicada (LLMs, visión multimodal, Computer Use y automatización por agentes). Especializado en ecosistemas Flutter/Dart, Kotlin, .NET, Node.js y Cloud (AWS/GCP), aplicando Clean Architecture, BLoC y TDD para garantizar alto rendimiento, mantenibilidad y continuidad operativa de negocio.</p>
+                </div>
+            </section>
+
+            <!-- HABILIDADES TÉCNICAS -->
+            <section class="cv-section">
+                <h2 class="cv-section-title">Habilidades Técnicas</h2>
+                <div class="cv-skills-container">
+
+                    <div class="cv-skill-item">
+                        <span class="cv-skill-category">IA Generativa & Agentes</span>
+                        <span class="cv-skill-list">
+                            <span class="cv-skill-tag">LLMs (Gemini, Claude, OpenAI, Qwen)</span>
+                            <span class="cv-skill-tag">Visión Multimodal / Computer Use</span>
+                            <span class="cv-skill-tag">Model Context Protocol (MCP)</span>
+                            <span class="cv-skill-tag">Agentes Autónomos</span>
+                            <span class="cv-skill-tag">Speech Recognition On-Device / TTS</span>
+                            <span class="cv-skill-tag">OCR en Pantalla en Tiempo Real</span>
+                            <span class="cv-skill-tag">Prompt Engineering & Tools</span>
+                        </span>
+                    </div>
+
+                    <div class="cv-skill-item">
+                        <span class="cv-skill-category">Mobile & Android TV</span>
+                        <span class="cv-skill-list">
+                            <span class="cv-skill-tag">Android Nativo (Kotlin, Java)</span>
+                            <span class="cv-skill-tag">Jetpack Compose & Compose for TV</span>
+                            <span class="cv-skill-tag">Android TV (10-foot UI / D-Pad Focus)</span>
+                            <span class="cv-skill-tag">Flutter & Dart</span>
+                            <span class="cv-skill-tag">iOS (Swift)</span>
+                            <span class="cv-skill-tag">React Native</span>
+                            <span class="cv-skill-tag">Google Play Console & App Store</span>
+                        </span>
+                    </div>
+
+                    <div class="cv-skill-item">
+                        <span class="cv-skill-category">Streaming & Multimedia</span>
+                        <span class="cv-skill-list">
+                            <span class="cv-skill-tag">Media3 / ExoPlayer (HLS, DASH, MP4)</span>
+                            <span class="cv-skill-tag">Optimización TTFF & Video Cache</span>
+                            <span class="cv-skill-tag">Extractores Multimedia & Scraping</span>
+                            <span class="cv-skill-tag">WebSockets en Tiempo Real</span>
+                            <span class="cv-skill-tag">GraphQL & REST APIs</span>
+                        </span>
+                    </div>
+
+                    <div class="cv-skill-item">
+                        <span class="cv-skill-category">Integraciones & Mensajería</span>
+                        <span class="cv-skill-list">
+                            <span class="cv-skill-tag">Meta / WhatsApp Cloud API</span>
+                            <span class="cv-skill-tag">WABAs & Conexión de Líneas</span>
+                            <span class="cv-skill-tag">Plantillas (Marketing/Utility/Auth)</span>
+                            <span class="cv-skill-tag">Webhooks en Tiempo Real</span>
+                            <span class="cv-skill-tag">Health & TIER Monitoring</span>
+                            <span class="cv-skill-tag">APIs RESTful & OpenAPI</span>
+                        </span>
+                    </div>
+
+                    <div class="cv-skill-item">
+                        <span class="cv-skill-category">Backend & Arquitectura</span>
+                        <span class="cv-skill-list">
+                            <span class="cv-skill-tag">.NET / .NET Core</span>
+                            <span class="cv-skill-tag">C#</span>
+                            <span class="cv-skill-tag">Node.js / TypeScript</span>
+                            <span class="cv-skill-tag">Python</span>
+                            <span class="cv-skill-tag">Clean Architecture & SOLID</span>
+                            <span class="cv-skill-tag">Arquitectura Multi-módulo</span>
+                            <span class="cv-skill-tag">MVVM / BLoC</span>
+                            <span class="cv-skill-tag">TDD / Pruebas Unitarias</span>
+                        </span>
+                    </div>
+
+                    <div class="cv-skill-item">
+                        <span class="cv-skill-category">Desktop & Web 3D</span>
+                        <span class="cv-skill-list">
+                            <span class="cv-skill-tag">.NET 8 WPF (Win32 APIs / AppBar)</span>
+                            <span class="cv-skill-tag">Electron</span>
+                            <span class="cv-skill-tag">Three.js (WebGL)</span>
+                            <span class="cv-skill-tag">GSAP (Animaciones & Timelines)</span>
+                            <span class="cv-skill-tag">Vite</span>
+                        </span>
+                    </div>
+
+                    <div class="cv-skill-item">
+                        <span class="cv-skill-category">Bases de Datos</span>
+                        <span class="cv-skill-list">
+                            <span class="cv-skill-tag">SQL Server</span>
+                            <span class="cv-skill-tag">PostgreSQL</span>
+                            <span class="cv-skill-tag">MySQL</span>
+                            <span class="cv-skill-tag">MongoDB</span>
+                            <span class="cv-skill-tag">Cloud Firestore</span>
+                            <span class="cv-skill-tag">SQLite / Room (Persistencia Atómica)</span>
+                            <span class="cv-skill-tag">Redis</span>
+                            <span class="cv-skill-tag">Supabase</span>
+                        </span>
+                    </div>
+
+                    <div class="cv-skill-item">
+                        <span class="cv-skill-category">Frontend Web</span>
+                        <span class="cv-skill-list">
+                            <span class="cv-skill-tag">Angular</span>
+                            <span class="cv-skill-tag">React</span>
+                            <span class="cv-skill-tag">Next.js (SSR / SSG)</span>
+                            <span class="cv-skill-tag">TypeScript</span>
+                            <span class="cv-skill-tag">HTML5 / CSS3</span>
+                            <span class="cv-skill-tag">Responsive UX</span>
+                        </span>
+                    </div>
+
+                    <div class="cv-skill-item">
+                        <span class="cv-skill-category">Cloud, DevOps & Seguridad</span>
+                        <span class="cv-skill-list">
+                            <span class="cv-skill-tag">AWS (Lambda, API GW, S3, Cognito)</span>
+                            <span class="cv-skill-tag">GCP & Firebase</span>
+                            <span class="cv-skill-tag">Microsoft Azure (AZ-900)</span>
+                            <span class="cv-skill-tag">Docker</span>
+                            <span class="cv-skill-tag">Jenkins & GitHub Actions</span>
+                            <span class="cv-skill-tag">Fastlane & Gradle Kotlin DSL</span>
+                            <span class="cv-skill-tag">Ingeniería Inversa de APKs (Bytecode / Forense)</span>
+                        </span>
+                    </div>
+
+                    <div class="cv-skill-item">
+                        <span class="cv-skill-category">Idiomas</span>
+                        <span class="cv-skill-list">
+                            <span class="cv-skill-tag">Español (Nativo)</span>
+                            <span class="cv-skill-tag">Inglés (A2 - Técnico / Lectura de Documentación)</span>
+                        </span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- EXPERIENCIA -->
+            <section class="cv-section">
+                <h2 class="cv-section-title">Experiencia Profesional</h2>
+
+                <!-- Pharma Salud Desktop & SVA -->
+                <div class="cv-entry">
+                    <div class="cv-entry-header">
+                        <span>PHARMA SALUD S.A.C.</span>
+                        <span>Remoto</span>
+                    </div>
+                    <div class="cv-entry-subheader">
+                        <span>Software Engineer (Consultoría / Proyecto)</span>
+                        <span>Abr 2026 – Jun 2026</span>
+                    </div>
+                    <ul class="cv-entry-bullets">
+                        <li>Diseñé y construí una aplicación de escritorio multiplataforma utilizando Flutter y Dart bajo Clean Architecture y patrón BLoC, centralizando la gestión y operación de procesos del negocio.</li>
+                        <li>Implementé la integración integral de Meta / WhatsApp Cloud API, gestionando conexión de líneas telefónicas, WABAs, plantillas de utilidad/marketing y recepción de eventos en tiempo real mediante Webhooks con monitoreo activo de salud y nivel TIER.</li>
+                        <li>Desarrollé la capa de comunicación y consumo de APIs RESTful bajo contratos OpenAPI/Swagger, garantizando sincronización segura y desacoplada de la información corporativa.</li>
+                        <li>Configuré el flujo de integración y despliegue continuo (CI/CD) utilizando Jenkins y Fastlane, incorporando validaciones de calidad de código y suites de pruebas automatizadas.</li>
+                    </ul>
+                    <div class="cv-tech-stack">
+                        <strong>Tecnologías:</strong> Flutter, Dart, BLoC, Clean Architecture, Meta / WhatsApp Cloud API, WABA, Webhooks, REST APIs, OpenAPI, Jenkins, Fastlane, Git.
+                    </div>
+                </div>
+
+                <!-- Multiplica S.A.C. -->
+                <div class="cv-entry">
+                    <div class="cv-entry-header">
+                        <span>MULTIPLICA S.A.C.</span>
+                        <span>Remoto</span>
+                    </div>
+                    <div class="cv-entry-subheader">
+                        <span>Software Engineer</span>
+                        <span>Mar 2025 – Mar 2026</span>
+                    </div>
+                    <ul class="cv-entry-bullets">
+                        <li>Diseñé e implementé una solución multiplataforma para escritorio y dispositivos móviles mediante FlutterFlow y Flutter, orientada al cálculo y cotización automatizada de proyectos de construcción según parámetros dinámicos de materiales y medidas.</li>
+                        <li>Diseñé la arquitectura de datos y persistencia distribuida en Google Cloud Platform (GCP) y Cloud Firestore, habilitando sincronización de información en tiempo real entre múltiples dispositivos.</li>
+                        <li>Desarrollé una segunda aplicación multiplataforma en Flutter para la consolidación analítica y generación automatizada de reportes gerenciales a partir de los datos en la nube.</li>
+                        <li>Analicé requerimientos técnicos y optimicé el consumo de endpoints RESTful para asegurar tiempos de respuesta ágiles en interfaces móviles y de escritorio.</li>
+                    </ul>
+                    <div class="cv-tech-stack">
+                        <strong>Tecnologías:</strong> FlutterFlow, Flutter, Dart, GCP, Cloud Firestore, APIs RESTful, Firebase, Git.
+                    </div>
+                </div>
+
+                <!-- Pharma Salud Web -->
+                <div class="cv-entry">
+                    <div class="cv-entry-header">
+                        <span>PHARMA SALUD S.A.C.</span>
+                        <span>Remoto</span>
+                    </div>
+                    <div class="cv-entry-subheader">
+                        <span>Software Engineer (Contrato por Proyecto)</span>
+                        <span>Ago 2024 – Nov 2024</span>
+                    </div>
+                    <ul class="cv-entry-bullets">
+                        <li>Desarrollé la plataforma web operativa de la organización utilizando Next.js, React y TypeScript, priorizando renderizado eficiente (SSR) y diseño adaptativo multidispositivo.</li>
+                        <li>Diseñé e integré la capa de servicios backend y persistencia relacional con Supabase y PostgreSQL, optimizando consultas y aplicando políticas de seguridad a nivel de filas (RLS).</li>
+                        <li>Construí los módulos de integración para el consumo de APIs externas de inventario y pedidos, asegurando consistencia transaccional y flujo continuo de información.</li>
+                    </ul>
+                    <div class="cv-tech-stack">
+                        <strong>Tecnologías:</strong> Next.js, React, TypeScript, JavaScript, Supabase, PostgreSQL, REST APIs, Git.
+                    </div>
+                </div>
+
+                <!-- Voluntrea Perú -->
+                <div class="cv-entry">
+                    <div class="cv-entry-header">
+                        <span>VOLUNTREA PERÚ</span>
+                        <span>Remoto</span>
+                    </div>
+                    <div class="cv-entry-subheader">
+                        <span>Software Engineer</span>
+                        <span>Mar 2023 – Jul 2023</span>
+                    </div>
+                    <ul class="cv-entry-bullets">
+                        <li>Diseñé e implementé interfaces web responsivas en Angular y TypeScript enfocadas en el enrolamiento, autenticación y gestión integral de voluntarios.</li>
+                        <li>Estructuré el manejo de estado reactivo y flujos de datos asíncronos mediante RxJS y NgRx, optimizando el rendimiento de renderizado en vistas complejas.</li>
+                        <li>Desarrollé y consumí APIs RESTful conectadas a bases de datos SQL Server y MySQL, optimizando consultas para reportes de actividad y programas de voluntariado.</li>
+                    </ul>
+                    <div class="cv-tech-stack">
+                        <strong>Tecnologías:</strong> Angular, TypeScript, JavaScript, RxJS, NgRx, REST APIs, SQL Server, MySQL, Git.
+                    </div>
+                </div>
+
+                <!-- D'Lirio S.A.C. -->
+                <div class="cv-entry">
+                    <div class="cv-entry-header">
+                        <span>D'LIRIO S.A.C.</span>
+                        <span>Lima, Perú</span>
+                    </div>
+                    <div class="cv-entry-subheader">
+                        <span>Software Engineer</span>
+                        <span>Jun 2020 – Ene 2023</span>
+                    </div>
+                    <ul class="cv-entry-bullets">
+                        <li>Desarrollé y di soporte a la plataforma telemática de monitoreo de transporte y mantenimiento vehicular, orientada al seguimiento en tiempo real y gestión operativa de flotas.</li>
+                        <li>Construí módulos frontend en Angular y TypeScript para tableros de control de telemetría, alertas operativas y visualización de rutas de transporte.</li>
+                        <li>Diseñé servicios backend y APIs RESTful en .NET (C#) y Python para la ingesta, validación y procesamiento de eventos telemáticos.</li>
+                        <li>Desplegué y administré servicios de infraestructura en la nube sobre AWS (Lambda, API Gateway, S3, Cognito) y Firestore, garantizando alta disponibilidad del sistema.</li>
+                        <li>Implementé prácticas de integración continua y control de versiones con Git, estabilizando los ciclos de despliegue a producción.</li>
+                    </ul>
+                    <div class="cv-tech-stack">
+                        <strong>Tecnologías:</strong> Angular, TypeScript, .NET, C#, Python, AWS, Firestore, REST APIs, SQL Server, MySQL, Git, CI/CD.
+                    </div>
+                </div>
+            </section>
+
+            <!-- PROYECTOS DESTACADOS (IA & MOBILE) -->
+            <section class="cv-section">
+                <h2 class="cv-section-title">Proyectos Destacados (IA & Mobile)</h2>
+
+                <div class="cv-entry">
+                    <div class="cv-entry-header">
+                        <span>J.A.R.V.I.S. — Android Autonomous Copilot</span>
+                        <span>Open Source / Personal</span>
+                    </div>
+                    <div class="cv-entry-subheader">
+                        <span>Arquitecto & Desarrollador Principal</span>
+                        <span>2026</span>
+                    </div>
+                    <ul class="cv-entry-bullets">
+                        <li>Diseñé y desarrollé un copiloto autónomo para Android con capacidades avanzadas de Computer Use, permitiendo controlar el sistema operativo por voz y visión artificial en tiempo real.</li>
+                        <li>Implementé el pipeline de percepción visual con Gemini Vision para analizar pantallas dinámicas de apps, descomponer intenciones del usuario en secuencias de acciones y ejecutarlas mediante ADB e Intents.</li>
+                        <li>Construí un panel web interactivo (HUD) en tiempo real para transmisión de pantalla, captura de voz por micrófono y visualización de la traza de razonamiento del agente.</li>
+                    </ul>
+                    <div class="cv-tech-stack">
+                        <strong>Tecnologías:</strong> Gemini Vision, Computer Use, Python, ADB, Android Intents, Multimodal AI, Edge-TTS, WebSockets, Web HUD.
+                    </div>
+                </div>
+
+                <div class="cv-entry">
+                    <div class="cv-entry-header">
+                        <span>ReelVoice — Control & Scroll por Voz On-Device</span>
+                        <span>Google Play Ready</span>
+                    </div>
+                    <div class="cv-entry-subheader">
+                        <span>Desarrollador Android (Kotlin)</span>
+                        <span>2026</span>
+                    </div>
+                    <ul class="cv-entry-bullets">
+                        <li>Desarrollé una aplicación nativa para Android en Kotlin que permite navegar y scrollear redes de video corto (Reels, TikTok) 100% manos libres mediante comandos de voz.</li>
+                        <li>Garanticé latencia ultra-baja (&lt;50ms) y privacidad total ejecutando el reconocimiento de voz de manera local en el dispositivo con SpeechRecognizer (zero-cloud).</li>
+                        <li>Diseñé un overlay flotante magnético con WindowManager y simulación táctil humana con AccessibilityService y curvas orgánicas de aceleración para emular deslizamientos reales.</li>
+                    </ul>
+                    <div class="cv-tech-stack">
+                        <strong>Tecnologías:</strong> Android SDK, Kotlin, SpeechRecognizer On-Device, AccessibilityService, WindowManager, ForegroundService, Material Design 3.
+                    </div>
+                </div>
+            </section>
+
+            <!-- EDUCACIÓN -->
+            <section class="cv-section">
+                <h2 class="cv-section-title">Educación</h2>
+                <div class="cv-entry">
+                    <div class="cv-entry-header">
+                        <span>Universidad Privada del Norte</span>
+                        <span>Lima, Perú</span>
+                    </div>
+                    <div class="cv-entry-subheader">
+                        <span>Bachiller en Ingeniería de Sistemas Computacionales</span>
+                        <span>Graduado</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CERTIFICACIONES -->
+            <section class="cv-section">
+                <h2 class="cv-section-title">Certificaciones</h2>
+                <ul class="cv-certifications-container">
+                    <li class="cv-certification-item">Microsoft Certified: Azure Fundamentals (AZ-900)</li>
+                    <li class="cv-certification-item">DevOps Foundation — DevOps Institute</li>
+                    <li class="cv-certification-item">Scrum Foundation Professional Certificate (SFPC)</li>
+                    <li class="cv-certification-item">Kanban Foundation Professional Certificate (KFPC)</li>
+                    <li class="cv-certification-item">Advanced Programming in C (CLP) — Cisco</li>
+                    <li class="cv-certification-item">Python Essentials 1 — Cisco</li>
+                </ul>
+            </section>
+
+            <!-- COMPETENCIAS PROFESIONALES -->
+            <section class="cv-section">
+                <h2 class="cv-section-title">Competencias Profesionales</h2>
+                <ul class="cv-competencies-container">
+                    <li class="cv-competency-item">Arquitectura Limpia & Multi-módulo (Clean Arch, BLoC, MVVM)</li>
+                    <li class="cv-competency-item">Inteligencia Artificial Aplicada (LLMs, Computer Use & MCP)</li>
+                    <li class="cv-competency-item">Desarrollo Mobile & Android TV (10-foot UI, D-Pad, Jetpack Compose)</li>
+                    <li class="cv-competency-item">Streaming Multimedia de Alto Rendimiento (Media3/ExoPlayer, TTFF & Cache)</li>
+                    <li class="cv-competency-item">Ingeniería Inversa & Análisis Forense de APKs (Bytecode & Seguridad)</li>
+                    <li class="cv-competency-item">Integraciones Meta / WhatsApp Cloud API, WABAs & Webhooks</li>
+                    <li class="cv-competency-item">Diseño de APIs RESTful, GraphQL & Contratos OpenAPI</li>
+                    <li class="cv-competency-item">Cloud Architecture & Serverless (AWS, GCP, Firebase)</li>
+                    <li class="cv-competency-item">Automatización CI/CD, Gradle Kotlin DSL & Pruebas Unitarias (TDD)</li>
+                    <li class="cv-competency-item">Desarrollo Desktop (.NET 8 WPF, Electron) & Web 3D (Three.js)</li>
+                    <li class="cv-competency-item">Monitoreo de Telemetría, Continuidad Operativa (SLAs 99.9%) & Metodologías Ágiles</li>
+                </ul>
+            </section>
+
+        </article>
+    </div>
+
+    <!-- Toast Notification for Clipboards (Screen only) -->
+    <div class="copied-toast" id="toast">
+        <i class="fa-solid fa-circle-check"></i>
+        <span id="toastText">Copiado al portapapeles</span>
+    </div>
+
+    <script>
+        // DOM Elements
+        const htmlEl = document.documentElement;
+        const themeBtn = document.getElementById('themeBtn');
+        const fontBtn = document.getElementById('fontBtn');
+        const printBtn = document.getElementById('printBtn');
+        const toast = document.getElementById('toast');
+        const toastText = document.getElementById('toastText');
+
+        // Theme Toggle (Dark / Light)
+        themeBtn.addEventListener('click', () => {
+            const currentTheme = htmlEl.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            htmlEl.setAttribute('data-theme', newTheme);
+
+            // Update icon
+            const icon = themeBtn.querySelector('i');
+            if (newTheme === 'dark') {
+                icon.className = 'fa-solid fa-moon';
+            } else {
+                icon.className = 'fa-solid fa-sun';
+            }
+
+            showToast(`Tema cambiado a ${newTheme === 'dark' ? 'Oscuro' : 'Claro'}`);
+        });
+
+        // Font Toggle (Serif / Sans)
+        fontBtn.addEventListener('click', () => {
+            const currentFont = htmlEl.getAttribute('data-font');
+            const newFont = currentFont === 'serif' ? 'sans' : 'serif';
+            htmlEl.setAttribute('data-font', newFont);
+
+            // Update icon representation
+            const icon = fontBtn.querySelector('i');
+            if (newFont === 'serif') {
+                showToast('Clásica Tipografía (Serif / Profesional)');
+            } else {
+                showToast('Moderna Tipografía (Sans-Serif / Limpia)');
+            }
+        });
+
+        // Print Action
+        printBtn.addEventListener('click', () => {
+            window.print();
+        });
+
+        // Helper: Copy Text to Clipboard with Toast Notification
+        function copyText(text, successMsg) {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast(successMsg);
+            }).catch(err => {
+                console.error('Error copying text: ', err);
+            });
+        }
+
+        // Helper: Toast Display
+        let toastTimeout;
+        function showToast(message) {
+            toastText.textContent = message;
+            toast.classList.add('show');
+
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2500);
+        }
+    </script>
+</body>
+
+</html>
